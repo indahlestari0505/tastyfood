@@ -10,14 +10,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('news', function (Blueprint $table) {
-            $table->string('title')->nullable();
-            $table->string('slug')->nullable()->unique();
-            $table->text('content')->nullable();
-            $table->string('image')->nullable();
-            $table->foreignId('user_id')
-                ->nullable()
-                ->constrained('users')
-                ->nullOnDelete();
+            // The create_news_table migration already defines these fields.
+            // Keep this migration safe for databases created from either schema.
+            if (! Schema::hasColumn('news', 'title')) $table->string('title')->nullable();
+            if (! Schema::hasColumn('news', 'slug')) $table->string('slug')->nullable()->unique();
+            if (! Schema::hasColumn('news', 'content')) $table->text('content')->nullable();
+            if (! Schema::hasColumn('news', 'image')) $table->string('image')->nullable();
+            if (! Schema::hasColumn('news', 'user_id')) {
+                $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
+            }
         });
     }
 

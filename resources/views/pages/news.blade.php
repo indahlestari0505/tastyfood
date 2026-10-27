@@ -5,6 +5,33 @@
 @section('hero-title', 'BERITA KAMI')
 
 @section('content')
+    @if ($news->isNotEmpty())
+        <section class="section-pad admin-stories">
+            <div class="container">
+                <div class="section-heading">
+                    <div><span class="eyebrow-line"></span><p class="section-kicker">DARI DAPUR TASTY FOOD</p><h2>BERITA TERBARU</h2></div>
+                    <p>Informasi dan cerita terbaru dari Tasty Food.</p>
+                </div>
+                <div class="article-grid">
+                    @foreach ($news as $item)
+                        <article class="news-card">
+                            @if ($item->image)
+                                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" loading="lazy">
+                            @else
+                                <img src="{{ asset('assets/fathul-abrar-T-qI_MI2EMA-unsplash.jpg') }}" alt="Hidangan Tasty Food" loading="lazy">
+                            @endif
+                            <div class="news-body">
+                                <p class="news-date">{{ $item->created_at?->translatedFormat('d F Y') }}</p>
+                                <h3>{{ $item->title }}</h3>
+                                <p>{{ Str::limit(strip_tags($item->content), 150) }}</p>
+                            </div>
+                        </article>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
+
     <section class="featured-story section-pad soft-bg">
         <div class="container split">
             <img class="story-image" src="{{ asset('assets/fathul-abrar-T-qI_MI2EMA-unsplash.jpg') }}" alt="Salad segar dalam piring" loading="lazy">
@@ -12,7 +39,6 @@
                 <h2>Apa saja makanan khas Nusantara?</h2>
                 <p>Indonesia memiliki kekayaan kuliner yang luar biasa. Dari bumbu yang harum hingga bahan lokal yang segar, setiap daerah punya cerita istimewa di balik hidangannya.</p>
                 <p>Di Tasty Food, inspirasi dari ragam kuliner itu kami padukan dengan bahan pilihan dan sentuhan yang lebih segar untuk sajian sehari-hari.</p>
-                <a class="button" href="#berita-lain">BACA SELENGKAPNYA</a>
             </div>
         </div>
     </section>
@@ -33,11 +59,7 @@
                 ] as [$image, $title, $copy])
                     <article class="news-card">
                         <img src="{{ asset('assets/' . $image) }}" alt="{{ $title }}" loading="lazy">
-                        <div class="news-body">
-                            <h3>{{ $title }}</h3>
-                            <p>{{ $copy }}</p>
-                            <a class="read-more" href="#berita-lain">Baca selengkapnya <span aria-hidden="true">→</span></a>
-                        </div>
+                        <div class="news-body"><h3>{{ $title }}</h3><p>{{ $copy }}</p></div>
                     </article>
                 @endforeach
             </div>

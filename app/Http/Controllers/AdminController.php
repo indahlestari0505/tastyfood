@@ -53,7 +53,9 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        return view('admin.dashboard');
+        return view('admin.dashboard', [
+            'newsCount' => \App\Models\News::count(),
+        ]);
     }
 
     public function logout(Request $request)

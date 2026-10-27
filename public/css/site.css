@@ -391,3 +391,5 @@ h2 { font-size: clamp(24px, 2.5vw, 34px); line-height: 1.25; letter-spacing: -.0
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
+
+.news-date{margin-bottom:7px!important;color:#a36c00!important;font-size:10px!important;font-weight:700;letter-spacing:.08em;text-transform:uppercase}

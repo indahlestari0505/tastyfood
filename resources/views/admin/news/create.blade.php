@@ -1,58 +1,10 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Tambah Berita</title>
-</head>
-<body>
-    <h1>Tambah Berita</h1>
-
-    <a href="{{ route('admin.news.index') }}">Kembali</a>
-
-    @if ($errors->any())
-        <ul style="color:red">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
-
-    <form
-        action="{{ route('admin.news.store') }}"
-        method="POST"
-        enctype="multipart/form-data"
-    >
-        @csrf
-
-        <p>
-            <label>Judul Berita</label><br>
-            <input
-                type="text"
-                name="title"
-                value="{{ old('title') }}"
-                required
-            >
-        </p>
-
-        <p>
-            <label>Isi Berita</label><br>
-            <textarea
-                name="content"
-                rows="8"
-                required
-            >{{ old('content') }}</textarea>
-        </p>
-
-        <p>
-            <label>Gambar Berita (opsional)</label><br>
-            <input
-                type="file"
-                name="image"
-                accept=".jpg,.jpeg,.png,.webp"
-            >
-        </p>
-
-        <button type="submit">Simpan Berita</button>
-    </form>
-</body>
-</html>
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Tambah Berita | Tasty Food Admin</title><link rel="stylesheet" href="{{ asset('css/admin.css') }}"></head>
+<body><div class="admin-shell"><header class="admin-topbar"><a class="admin-brand" href="{{ route('admin.dashboard') }}">TASTY <span>FOOD</span> / ADMIN</a><nav class="admin-nav"><a href="{{ route('admin.news.index') }}">Kelola Berita</a><form action="{{ route('admin.logout') }}" method="post">@csrf<button class="admin-logout" type="submit">Keluar</button></form></nav></header>
+<main class="admin-main"><div class="admin-heading"><div><p class="admin-eyebrow">RUANG REDAKSI · TASTY FOOD</p><h1>Tulis berita baru</h1><p>Konten yang disimpan langsung muncul di bagian teratas halaman Berita.</p></div><a class="admin-button secondary" href="{{ route('admin.news.index') }}">← &nbsp; KEMBALI</a></div>
+@if ($errors->any())<div class="admin-errors"><ul>@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>@endif
+<section class="admin-panel"><form class="admin-form" action="{{ route('admin.news.store') }}" method="post" enctype="multipart/form-data">@csrf<div class="admin-form-grid">
+<div class="admin-field full"><label for="title">Judul berita</label><input id="title" name="title" type="text" value="{{ old('title') }}" placeholder="Contoh: Cerita rasa dari dapur kami" maxlength="255" required>@error('title')<span class="admin-help">{{ $message }}</span>@enderror</div>
+<div class="admin-field full"><label for="content">Isi berita</label><textarea id="content" name="content" placeholder="Tuliskan cerita dan informasi yang ingin dibagikan..." required>{{ old('content') }}</textarea>@error('content')<span class="admin-help">{{ $message }}</span>@enderror</div>
+<div class="admin-field full"><label for="image">Foto berita <span style="font-weight:400;color:#888">(opsional)</span></label><input id="image" name="image" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"><span class="admin-help">JPG, PNG, atau WebP · maksimal 5 MB. Foto ini akan tampil bersama berita di halaman user.</span>@error('image')<span class="admin-help">{{ $message }}</span>@enderror</div>
+</div><div class="admin-form-actions"><button class="admin-button" type="submit">TERBITKAN BERITA</button><a class="admin-button secondary" href="{{ route('admin.news.index') }}">BATAL</a></div></form></section><p class="admin-footer">TASTY FOOD · PANEL ADMIN</p></main></div></body></html>

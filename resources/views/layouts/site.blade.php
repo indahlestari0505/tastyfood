@@ -68,7 +68,7 @@
                 <h3>Contact Info</h3>
                 <a href="mailto:tastyfood@gmail.com">✉ &nbsp; tastyfood@gmail.com</a>
                 <a href="tel:+6281234567890">☎ &nbsp; +62 812 3456 7890</a>
-                <span>⌖ &nbsp; Kota Bandung, Jawa Barat</span>
+                <span>⌖ &nbsp; Jl. Terusan Mars Utara III No.8D, Bandung</span>
             </div>
         </div>
         <div class="copyright">Copyright © {{ date('Y') }} Tasty Food. All rights reserved.</div>

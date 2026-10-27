@@ -31,7 +31,7 @@ class NewsController extends Controller
         ]);
 
         $data['slug'] = Str::slug($data['title']) . '-' . Str::random(6);
-        $data['user_id'] = auth()->id();
+        $data['user_id'] = \Illuminate\Support\Facades\Auth::id();
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')
@@ -54,7 +54,7 @@ class NewsController extends Controller
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
 
         $data['slug'] = Str::slug($data['title']) . '-' . Str::random(6);

@@ -3,12 +3,13 @@
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactMessageController;
+use App\Http\Controllers\NewsController as PublicNewsController;
 use Illuminate\Support\Facades\Route;
 
 // Halaman website untuk user
 Route::view('/', 'pages.home')->name('home');
 Route::view('/tentang', 'pages.about')->name('about');
-Route::view('/berita', 'pages.news')->name('news');
+Route::get('/berita', [PublicNewsController::class, 'index'])->name('news');
 Route::view('/galeri', 'pages.gallery')->name('gallery');
 Route::view('/kontak', 'pages.contact')->name('contact');
 

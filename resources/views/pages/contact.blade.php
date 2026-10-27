@@ -52,14 +52,14 @@
             <div>
                 <span class="contact-icon" aria-hidden="true">⌖</span>
                 <h3>LOCATION</h3>
-                <p>Kota Bandung, Jawa Barat</p>
+                <p>Jl. Terusan Mars Utara III No.8D, Manjahlega, Kec. Bandung Kidul, Kota Bandung, Jawa Barat 40267</p>
             </div>
         </div>
     </section>
 
     <section class="map-section">
         <div class="container">
-            <iframe title="Peta Kota Bandung" src="https://maps.google.com/maps?q=Bandung%2C%20Jawa%20Barat&t=&z=13&ie=UTF8&iwloc=&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe title="Peta Tasty Food, Jl. Terusan Mars Utara III No.8D, Bandung" src="https://maps.google.com/maps?q=Jl.%20Terusan%20Mars%20Utara%20III%20No.8D%2C%20Manjahlega%2C%20Kec.%20Bandung%20Kidul%2C%20Kota%20Bandung%2C%20Jawa%20Barat%2040267&t=&z=17&ie=UTF8&iwloc=&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </section>
 @endsection
