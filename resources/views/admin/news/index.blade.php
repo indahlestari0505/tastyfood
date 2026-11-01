@@ -1,9 +1,156 @@
+
 <!doctype html>
-<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Kelola Berita | Tasty Food Admin</title><link rel="stylesheet" href="{{ asset('css/admin.css') }}"></head>
-<body><div class="admin-shell"><header class="admin-topbar"><a class="admin-brand" href="{{ route('admin.dashboard') }}">TASTY <span>FOOD</span> / ADMIN</a><nav class="admin-nav"><a href="{{ route('admin.dashboard') }}">Dashboard</a><a href="{{ route('news') }}" target="_blank">Lihat website ↗</a><form action="{{ route('admin.logout') }}" method="post">@csrf<button class="admin-logout" type="submit">Keluar</button></form></nav></header>
-<main class="admin-main">@if (session('success'))<div class="admin-notice" role="status">{{ session('success') }} <a href="{{ route('news') }}" target="_blank">Lihat di halaman user ↗</a></div>@endif
-<div class="admin-heading"><div><p class="admin-eyebrow">RUANG REDAKSI · TASTY FOOD</p><h1>Kelola berita</h1><p>Berita yang Anda terbitkan langsung tampil di halaman Berita user.</p></div><a class="admin-button" href="{{ route('admin.news.create') }}">＋ &nbsp; TAMBAH BERITA</a></div>
-<section class="admin-panel"><div class="admin-panel-head"><div><h2>Semua berita</h2><p>Diurutkan dari yang paling baru.</p></div><span class="admin-count">{{ $news->total() }} berita</span></div>
-@forelse ($news as $item)<article class="admin-item">@if ($item->image)<img class="admin-thumb" src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}">@else<img class="admin-thumb" src="{{ asset('assets/fathul-abrar-T-qI_MI2EMA-unsplash.jpg') }}" alt="">@endif<div class="admin-item-copy"><div class="admin-meta">{{ $item->created_at?->translatedFormat('d F Y') ?? 'Baru' }} · {{ $item->user?->name ?? 'Admin' }}</div><h3>{{ $item->title }}</h3><p>{{ Str::limit(strip_tags($item->content), 120) }}</p></div><div class="admin-actions"><a href="{{ route('admin.news.edit', $item) }}">Edit</a><form action="{{ route('admin.news.destroy', $item) }}" method="post" onsubmit="return confirm('Hapus berita ini?')">@csrf @method('DELETE')<button class="admin-button danger" type="submit">Hapus</button></form></div></article>
-@empty<div class="admin-empty"><span class="admin-empty-icon">✦</span><h3>Belum ada berita</h3><p>Mulai bagikan cerita terbaru dari Tasty Food.</p><a class="admin-button" href="{{ route('admin.news.create') }}">TAMBAH BERITA PERTAMA</a></div>@endforelse
-@if ($news->hasPages())<div class="admin-pagination">{{ $news->links() }}</div>@endif</section><p class="admin-footer">TASTY FOOD · PANEL ADMIN</p></main></div></body></html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kelola Berita | Tasty Food Admin</title>
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+</head>
+<body>
+
+<div class="admin-layout">
+
+    @include('admin.partials.sidebar')
+
+    <div class="admin-content">
+
+        <header class="admin-topbar">
+            <div class="topbar-left">
+                <button type="button" class="sidebar-toggle"
+                    id="sidebarToggle" aria-label="Buka menu">
+                    ☰
+                </button>
+                <div>
+                    <span class="topbar-subtitle">ADMINISTRATION</span>
+                    <h2>Kelola Berita</h2>
+                </div>
+            </div>
+
+            <a href="{{ route('news') }}" target="_blank"
+                class="topbar-website">
+                Lihat Website ↗
+            </a>
+        </header>
+
+        <main class="admin-main">
+
+            @if (session('success'))
+                <div class="admin-notice" role="status">
+                    {{ session('success') }}
+                    <a href="{{ route('news') }}" target="_blank">
+                        Lihat di halaman user ↗
+                    </a>
+                </div>
+            @endif
+
+            <div class="admin-heading">
+                <div>
+                    <p class="admin-eyebrow">RUANG REDAKSI</p>
+                    <h1>Kelola Berita</h1>
+                    <p>Kelola seluruh berita yang ditampilkan pada website.</p>
+                </div>
+
+                <a class="admin-button"
+                    href="{{ route('admin.news.create') }}">
+                    ＋ TAMBAH BERITA
+                </a>
+            </div>
+
+            <section class="admin-panel">
+
+                <div class="admin-panel-head">
+                    <div>
+                        <h2>Semua Berita</h2>
+                        <p>Diurutkan dari yang paling baru.</p>
+                    </div>
+
+                    <span class="admin-count">
+                        {{ $news->total() }} berita
+                    </span>
+                </div>
+
+                @forelse ($news as $item)
+
+                    <article class="admin-item">
+
+                        @if ($item->image)
+                            <img class="admin-thumb"
+                                src="{{ asset('storage/' . $item->image) }}"
+                                alt="{{ $item->title }}">
+                        @else
+                            <img class="admin-thumb"
+                                src="{{ asset('assets/fathul-abrar-T-qI_MI2EMA-unsplash.jpg') }}"
+                                alt="">
+                        @endif
+
+                        <div class="admin-item-copy">
+                            <div class="admin-meta">
+                                {{ $item->created_at?->translatedFormat('d F Y') ?? 'Baru' }}
+                                · {{ $item->user?->name ?? 'Admin' }}
+                            </div>
+
+                            <h3>{{ $item->title }}</h3>
+
+                            <p>
+                                {{ Str::limit(strip_tags($item->content), 120) }}
+                            </p>
+                        </div>
+
+                        <div class="admin-actions">
+
+                            <a href="{{ route('admin.news.edit', $item) }}">
+                                Edit
+                            </a>
+
+                            <form
+                                action="{{ route('admin.news.destroy', $item) }}"
+                                method="post"
+                                onsubmit="return confirm('Hapus berita ini?')">
+
+                                @csrf
+                                @method('DELETE')
+
+                                <button class="admin-button danger"
+                                    type="submit">
+                                    Hapus
+                                </button>
+                            </form>
+
+                        </div>
+
+                    </article>
+
+                @empty
+
+                    <div class="admin-empty">
+                        <span class="admin-empty-icon">✦</span>
+                        <h3>Belum ada berita</h3>
+                        <p>Mulai bagikan cerita terbaru dari Tasty Food.</p>
+
+                        <a class="admin-button"
+                            href="{{ route('admin.news.create') }}">
+                            TAMBAH BERITA PERTAMA
+                        </a>
+                    </div>
+
+                @endforelse
+
+                @if ($news->hasPages())
+                    <div class="admin-pagination">
+                        {{ $news->links() }}
+                    </div>
+                @endif
+
+            </section>
+
+            <p class="admin-footer">TASTY FOOD · PANEL ADMIN</p>
+
+        </main>
+
+    </div>
+</div>
+
+<script src="{{ asset('js/admin.js') }}"></script>
+</body>
+</html>

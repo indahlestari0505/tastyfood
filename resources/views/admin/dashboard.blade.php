@@ -1,7 +1,128 @@
+
 <!doctype html>
-<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Dashboard | Tasty Food Admin</title><link rel="stylesheet" href="{{ asset('css/admin.css') }}"></head>
-<body><div class="admin-shell"><header class="admin-topbar"><a class="admin-brand" href="{{ route('admin.dashboard') }}">TASTY <span>FOOD</span> / ADMIN</a><nav class="admin-nav"><a href="{{ route('admin.news.index') }}">Kelola Berita</a><a href="{{ route('home') }}" target="_blank">Lihat website ↗</a><form action="{{ route('admin.logout') }}" method="post">@csrf<button class="admin-logout" type="submit">Keluar</button></form></nav></header>
-<main class="admin-main"><div class="admin-heading"><div><p class="admin-eyebrow">PANEL ADMINISTRATOR</p><h1>Dashboard</h1><p>Kelola konten Tasty Food dari satu tempat.</p></div></div>
-<section class="admin-dashboard-grid"><div class="admin-welcome"><p class="admin-eyebrow">SELAMAT DATANG KEMBALI</p><h2>Halo, {{ auth()->user()->name }}.</h2><p>Terbitkan berita dan foto terbaru untuk pengunjung website. Setiap berita baru langsung tampil paling atas di halaman Berita.</p><div class="admin-stats"><div class="admin-stat"><strong>{{ $newsCount }}</strong><span>BERITA DITERBITKAN</span></div><div class="admin-stat"><strong>{{ now()->translatedFormat('d') }}</strong><span>{{ now()->translatedFormat('F Y') }}</span></div></div></div>
-<div class="admin-quick"><p class="admin-eyebrow">PUBLIKASI</p><h3>Bagikan cerita terbaru</h3><p>Tambah berita dengan foto. Berita langsung tersambung ke halaman user setelah disimpan.</p><a class="admin-button" href="{{ route('admin.news.create') }}">＋ &nbsp; TULIS BERITA</a><a style="margin-top:14px;font-size:11px;font-weight:700" href="{{ route('admin.news.index') }}">Kelola semua berita →</a></div></section>
-<p class="admin-footer"><a href="{{ route('home') }}">← Kembali ke halaman utama</a> &nbsp; · &nbsp; TASTY FOOD · PANEL ADMIN</p></main></div></body></html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Dashboard | Tasty Food Admin</title>
+
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+</head>
+
+<body>
+
+<div class="admin-layout">
+
+    @include('admin.partials.sidebar')
+
+    <div class="admin-content">
+
+        <header class="admin-topbar">
+            <div class="topbar-left">
+                <button type="button"
+                        class="sidebar-toggle"
+                        id="sidebarToggle"
+                        aria-label="Buka menu"
+                        aria-expanded="false">
+                    ☰
+                </button>
+
+                <div>
+                    <span class="topbar-subtitle">ADMINISTRATION</span>
+                    <h2>Dashboard</h2>
+                </div>
+            </div>
+
+            <a href="{{ route('home') }}"
+               target="_blank"
+               class="topbar-website">
+                Lihat Website ↗
+            </a>
+        </header>
+
+        <main class="admin-main">
+
+            <div class="admin-heading">
+                <div>
+                    <p class="admin-eyebrow">PANEL ADMINISTRATOR</p>
+                    <h1>Dashboard</h1>
+                    <p>Kelola konten Tasty Food dari satu tempat.</p>
+                </div>
+            </div>
+
+            <section class="admin-dashboard-grid">
+
+                <div class="admin-welcome">
+                    <p class="admin-eyebrow">
+                        SELAMAT DATANG KEMBALI
+                    </p>
+
+                    <h2>
+                        Halo, {{ auth()->user()->name }}.
+                    </h2>
+
+                    <p>
+                        Terbitkan berita dan foto terbaru untuk
+                        pengunjung website. Setiap berita baru
+                        langsung tampil paling atas di halaman Berita.
+                    </p>
+
+                    <div class="admin-stats">
+
+                        <div class="admin-stat">
+                            <strong>{{ $newsCount }}</strong>
+                            <span>BERITA DITERBITKAN</span>
+                        </div>
+
+                        <div class="admin-stat">
+                            <strong>
+                                {{ now()->translatedFormat('d') }}
+                            </strong>
+                            <span>
+                                {{ now()->translatedFormat('F Y') }}
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="admin-quick">
+
+                    <p class="admin-eyebrow">PUBLIKASI</p>
+
+                    <h3>Bagikan cerita terbaru</h3>
+
+                    <p>
+                        Tambah berita dengan foto. Berita langsung
+                        tersambung ke halaman user setelah disimpan.
+                    </p>
+
+                    <a class="admin-button"
+                       href="{{ route('admin.news.create') }}">
+                        ＋ TULIS BERITA
+                    </a>
+
+                    <a style="margin-top:14px;font-size:11px;font-weight:700"
+                       href="{{ route('admin.news.index') }}">
+                        Kelola semua berita →
+                    </a>
+
+                </div>
+
+            </section>
+
+            <p class="admin-footer">
+                TASTY FOOD · PANEL ADMIN
+            </p>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="{{ asset('js/admin.js') }}"></script>
+
+</body>
+</html>

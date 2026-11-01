@@ -20,6 +20,8 @@ class ContactMessageController extends Controller
         $data['received_at'] = now()->toIso8601String();
         Storage::disk('local')->append('contact-messages.jsonl', json_encode($data, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR));
 
-        return back()->with('success', 'Terima kasih! Pesan Anda berhasil dikirim.');
+        return redirect()
+            ->route('home')
+            ->with('success', 'Terima kasih! Pesan Anda berhasil dikirim.');
     }
 }
