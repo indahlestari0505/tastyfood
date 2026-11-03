@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ContactMessage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class ContactMessageController extends Controller
 {
@@ -17,8 +17,7 @@ class ContactMessageController extends Controller
             'message' => ['required', 'string', 'max:5000'],
         ]);
 
-        $data['received_at'] = now()->toIso8601String();
-        Storage::disk('local')->append('contact-messages.jsonl', json_encode($data, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR));
+        ContactMessage::create($data);
 
         return redirect()
             ->route('home')

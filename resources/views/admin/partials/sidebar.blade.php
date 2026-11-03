@@ -31,6 +31,12 @@
             <span class="sidebar-icon">▤</span>
             <span>Kelola Berita</span>
         </a>
+        
+        <a href="{{ route('admin.messages.index') }}"
+        class="{{ request()->routeIs('admin.messages.*') ? 'active' : '' }}">
+            <span class="sidebar-icon">✉</span>
+            <span>Kelola Pesan</span>
+        </a>
 
         <a href="{{ route('admin.news.create') }}"
            class="{{ request()->routeIs('admin.news.create') ? 'active' : '' }}">

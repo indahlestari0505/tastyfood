@@ -746,3 +746,47 @@ textarea {
         width: calc(100% - 24px);
     }
 }
+
+/* =====================================
+   CONTACT MESSAGE MANAGEMENT
+===================================== */
+
+.message-item {
+    grid-template-columns: 48px minmax(0, 1fr) auto;
+}
+
+.message-avatar {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #fff3d8;
+    color: #9a6500;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.message-item .admin-item-copy p {
+    margin-bottom: 5px;
+    overflow-wrap: anywhere;
+}
+
+.message-item .admin-actions {
+    flex-wrap: wrap;
+}
+
+@media (max-width: 700px) {
+    .message-item {
+        grid-template-columns: 42px minmax(0, 1fr);
+    }
+
+    .message-avatar {
+        width: 38px;
+        height: 38px;
+    }
+
+    .message-item .admin-actions {
+        grid-column: 2;
+    }
+}

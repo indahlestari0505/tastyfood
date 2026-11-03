@@ -1,6 +1,8 @@
+
 <?php
 
 use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\Admin\ContactMessageController as AdminContactMessageController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\NewsController as PublicNewsController;
@@ -34,6 +36,7 @@ Route::prefix('admin')
     ->name('admin.')
     ->middleware('admin')
     ->group(function () {
+
         Route::get(
             '/',
             [AdminController::class, 'dashboard']
@@ -44,5 +47,10 @@ Route::prefix('admin')
             [AdminController::class, 'logout']
         )->name('logout');
 
+        // Kelola Berita
         Route::resource('news', NewsController::class);
+
+        // Kelola Pesan
+        Route::resource('messages', AdminContactMessageController::class)
+            ->only(['index', 'edit', 'update', 'destroy']);
     });
